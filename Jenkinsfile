@@ -7,7 +7,7 @@ def ansible = [:]
 def kops = [:]
          kops.name = 'kops'
          kops.host = '172.31.42.19'
-         kops.user = 'centos'
+         kops.user = 'ubuntu'
          kops.allowAnyHosts = true
 pipeline {
     agent { label 'slave' }
