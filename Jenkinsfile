@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('prepare-workspace') {
             steps {
-                git url: 'https://github.com/vank1999/Maven-Java-Project.git', branch: 'master'
+                git credentialsId: 'git', url: 'https://github.com/vank1999/Maven-Java-Project.git'
             }
         }        
     }
