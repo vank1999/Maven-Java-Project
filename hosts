@@ -1,4 +1,4 @@
-[slave]
+[jenkins-slave]
 172.31.23.123
 
 [sonar]
