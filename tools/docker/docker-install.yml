@@ -1,8 +1,8 @@
 ---
 - name: Install Docker on Ubuntu
-  gather_facts: No
   hosts: jenkins-slave
   become: true
+  gather_facts: yes
 
   tasks:
     - name: Install prerequisites
