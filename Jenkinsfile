@@ -27,14 +27,14 @@ pipeline {
         stage('tools-setup') {
             steps {
             echo "Tools Setup"
-            sshCommand remote: ansible, command: 'cd Maven-Java-Project; git pull'
-            sshCommand remote: ansible, command: 'cd Maven-Java-Project; ansible-playbook -i hosts tools/sonarqube/sonar-install.yaml'
-            sshCommand remote: ansible, command: 'cd Maven-Java-Project; ansible-playbook -i hosts tools/docker/docker-install.yml'  
+            //sshCommand remote: ansible, command: 'cd Maven-Java-Project; git pull'
+            //sshCommand remote: ansible, command: 'cd Maven-Java-Project; ansible-playbook -i hosts tools/sonarqube/sonar-install.yaml'
+            //sshCommand remote: ansible, command: 'cd Maven-Java-Project; ansible-playbook -i hosts tools/docker/docker-install.yml'  
             
             //K8s Setup
-           sshCommand remote: kops, command: "cd Maven-Java-Project; git pull"
-	       sshCommand remote: kops, command: "kubectl apply -f Maven-Java-Project/k8s-code/staging/namespace/staging-ns.yml"
-	       sshCommand remote: kops, command: "kubectl apply -f Maven-Java-Project/k8s-code/prod/namespace/prod-ns.yml"
+           //sshCommand remote: kops, command: "cd Maven-Java-Project; git pull"
+	       //sshCommand remote: kops, command: "kubectl apply -f Maven-Java-Project/k8s-code/staging/namespace/staging-ns.yml"
+	       //sshCommand remote: kops, command: "kubectl apply -f Maven-Java-Project/k8s-code/prod/namespace/prod-ns.yml"
             }
         }
 
@@ -47,6 +47,19 @@ pipeline {
                 }
             }
         }
+
+        stage('Unit Test Cases') {
+          steps{
+	       echo "Clean and Test"
+              sh "mvn clean test"  
+          }
+          post{
+              success{
+		      echo "Clean and Test"
+                  junit 'target/surefire-reports/*.xml'
+              }
+          }
+      }
 
     }
 }
