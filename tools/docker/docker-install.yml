@@ -1,7 +1,7 @@
 ---
 - name: Install Docker on Ubuntu
   gather_facts: No
-  hosts: slave
+  hosts: jenkins-slave
   become: true
 
   tasks:
