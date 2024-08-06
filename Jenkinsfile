@@ -36,6 +36,17 @@ pipeline {
 	       sshCommand remote: kops, command: "kubectl apply -f Maven-Java-Project/k8s-code/staging/namespace/staging-ns.yml"
 	       sshCommand remote: kops, command: "kubectl apply -f Maven-Java-Project/k8s-code/prod/namespace/prod-ns.yml"
             }
-        }        
+        }
+
+        stage('sonarqube analysis'){
+            steps{
+                 echo "Sonar Scanner"
+                 sh "mvn clean compile"
+                 withSonarQubeEnv('sonarqube') { 
+                 sh "mvn sonar:sonar "
+                }
+            }
+        }
+
     }
 }
