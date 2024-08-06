@@ -1,6 +1,6 @@
 def ansible = [:]
          ansible.name = 'ansible'
-         ansible.host = '172.31.23.123'
+         ansible.host = '172.31.19.53'
          ansible.user = 'ubuntu'
          ansible.identityFile = '~/.ssh/id_rsa' // Path to the private key
          ansible.allowAnyHosts = true
