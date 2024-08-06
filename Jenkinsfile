@@ -2,15 +2,16 @@ def ansible = [:]
          ansible.name = 'ansible'
          ansible.host = '172.31.19.53'
          ansible.user = 'ubuntu'
-         //ansible.password = 'admin123'
+         ansible.identityFile = '~/.ssh/id_rsa' // Path to the private key
          ansible.allowAnyHosts = true
 
 def kops = [:]
          kops.name = 'kops'
          kops.host = '172.31.42.19'
          kops.user = 'ubuntu'
-         //kops.password = 'admin123'
+         kops.identityFile = '~/.ssh/id_rsa'
          kops.allowAnyHosts = true
+
 pipeline {
     agent { label 'slave' }
     tools{
