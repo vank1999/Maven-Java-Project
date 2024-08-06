@@ -21,6 +21,7 @@ pipeline {
         stage('prepare-workspace') {
             steps {
                 git credentialsId: 'git', url: 'https://github.com/vank1999/Maven-Java-Project.git'
+                stash 'Source'
             }
         }
 
@@ -57,6 +58,19 @@ pipeline {
               success{
 		      echo "Clean and Test"
                   junit 'target/surefire-reports/*.xml'
+              }
+          }
+      }
+
+      stage('Build Code') {
+        
+          steps{
+	      unstash 'Source'
+              sh "mvn clean package"  
+          }
+          post{
+              success{
+                  archiveArtifacts '**/*.war'
               }
           }
       }
