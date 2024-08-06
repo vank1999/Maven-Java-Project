@@ -1,7 +1,7 @@
 ---
 - name: Install Docker on Ubuntu
   gather_facts: No
-  hosts: build
+  hosts: slave
   become: true
 
   tasks:
