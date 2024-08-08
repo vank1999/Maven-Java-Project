@@ -5,7 +5,6 @@ import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-//import org.powermock.*;
 
 import static org.mockito.Mockito.*;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
@@ -17,7 +16,6 @@ import static org.powermock.api.mockito.PowerMockito.whenNew;
  * <p/>
  * This test uses PowerMock and Mockito to mock objects.
  */
-//@PowerMockIgnore("jdk.internal.reflect.*")
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({System.class, HelloApp.class})
 public class HelloAppTest {
@@ -36,7 +34,7 @@ public class HelloAppTest {
         HelloApp.main(args);
 
         // Did the program exit with the expected error code?
-        PowerMockito.verifyStatic(only());
+        PowerMockito.verifyStatic(System.class, only());
         System.exit(HelloApp.EXIT_STATUS_PARAMETER_NOT_UNDERSTOOD);
     }
 
@@ -55,7 +53,7 @@ public class HelloAppTest {
         HelloApp.main(args);
 
         // Did the program exit with the expected error code?
-        PowerMockito.verifyStatic(only());
+        PowerMockito.verifyStatic(System.class, only());
         System.exit(HelloApp.EXIT_STATUS_HELLO_FAILED);
     }
 
