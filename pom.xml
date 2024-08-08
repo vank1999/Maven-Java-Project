@@ -11,20 +11,30 @@
   <packaging>war</packaging>
 
   <properties>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <maven.compiler.source>11</maven.compiler.source> <!-- Set to Java 11 -->
-    <maven.compiler.target>11</maven.compiler.target> <!-- Set to Java 11 -->
   </properties>
 
   <dependencies>
-    <!-- Testing dependencies. -->
+    <!-- JUnit dependency -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.13.2</version>
       <scope>test</scope>
     </dependency>
+
+    <!-- Mockito dependency -->
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>2.28.2</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- PowerMock dependencies -->
     <dependency>
       <groupId>org.powermock</groupId>
       <artifactId>powermock-module-junit4</artifactId>
@@ -37,55 +47,48 @@
       <version>2.0.9</version>
       <scope>test</scope>
     </dependency>
+
+    <!-- ByteBuddy dependency -->
     <dependency>
-      <groupId>com.github.stefanbirkner</groupId>
-      <artifactId>system-rules</artifactId>
-      <version>1.19.0</version>
+      <groupId>net.bytebuddy</groupId>
+      <artifactId>byte-buddy</artifactId>
+      <version>1.10.10</version>
       <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>junit</groupId>
-          <artifactId>junit-dep</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
 
     <!-- Selenium dependency -->
     <dependency>
-        <groupId>org.seleniumhq.selenium</groupId>
-        <artifactId>selenium-java</artifactId>
-        <version>3.10.0</version>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>3.10.0</version>
     </dependency>
   </dependencies>
 
   <build>
     <plugins>
       <plugin>
-        <!-- Configures the compiler. -->
+        <!-- Configures the compiler to use Java 11 -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
-          <source>${maven.compiler.source}</source>
-          <target>${maven.compiler.target}</target>
+          <source>11</source>
+          <target>11</target>
           <compilerArgs>
             <arg>-Xlint</arg>
           </compilerArgs>
         </configuration>
       </plugin>
-
+      
       <plugin>
-        <!-- Unit tests are run by Surefire. -->
-        <!-- Classes under src/test/java called *Test are included automatically. -->
+        <!-- Unit tests are run by surefire. -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.22.2</version>
       </plugin>
 
       <plugin>
-        <!-- Integration tests are run by Failsafe. -->
-        <!-- Classes under src/test/java called *IT are included automatically. -->
-        <!-- Integration tests are run during the verify phase. -->
+        <!-- Integration tests are run by failsafe. -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
         <version>2.22.2</version>
@@ -98,8 +101,9 @@
           </execution>
         </executions>
       </plugin>
-
+      
       <plugin>
+        <!-- Cobertura plugin for code coverage -->
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
         <version>2.7</version>
@@ -123,7 +127,7 @@
   <reporting>
     <plugins>
       <plugin>
-        <!-- JUnit code coverage with Cobertura. -->
+        <!-- JUnit code coverage -->
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
         <version>2.7</version>
