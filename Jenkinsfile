@@ -54,7 +54,6 @@ pipeline {
 	       echo "Clean and Test"
               sh "mvn clean install"
 	      sh "mvn test"
-"
           }
           post{
               success{
