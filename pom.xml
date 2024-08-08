@@ -56,6 +56,14 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- System Rules for testing System.out and System.exit -->
+    <dependency>
+      <groupId>com.github.stefanbirkner</groupId>
+      <artifactId>system-rules</artifactId>
+      <version>1.19.0</version>
+      <scope>test</scope>
+    </dependency>
+
     <!-- Selenium dependency -->
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
