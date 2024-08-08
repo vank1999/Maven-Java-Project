@@ -52,7 +52,7 @@ pipeline {
         stage('Unit Test Cases') {
           steps{
 	       echo "Clean and Test"
-              sh "mvn clean test"  
+              sh "mvn clean install"  
           }
           post{
               success{
