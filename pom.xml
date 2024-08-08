@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -10,100 +11,81 @@
   <packaging>war</packaging>
 
   <properties>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
 
   <dependencies>
-    <!-- JUnit dependency -->
+    <!-- Testing dependencies. -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.13.2</version>
+      <version>4.11</version>
       <scope>test</scope>
     </dependency>
-
-    <!-- Mockito dependency -->
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
-      <version>5.0.0</version> <!-- Latest version -->
-      <scope>test</scope>
-    </dependency>
-
-    <!-- PowerMock dependencies -->
     <dependency>
       <groupId>org.powermock</groupId>
       <artifactId>powermock-module-junit4</artifactId>
-      <version>2.0.9</version>
+      <version>1.7.4</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.powermock</groupId>
-      <artifactId>powermock-api-mockito2</artifactId>
-      <version>2.0.9</version>
+      <artifactId>powermock-api-mockito</artifactId>
+      <version>1.7.4</version>
       <scope>test</scope>
     </dependency>
-
-    <!-- ByteBuddy dependency -->
-    <dependency>
-      <groupId>net.bytebuddy</groupId>
-      <artifactId>byte-buddy</artifactId>
-      <version>1.12.14</version>
-      <scope>test</scope>
-    </dependency>
-
-    <!-- System Rules for testing System.out and System.exit -->
     <dependency>
       <groupId>com.github.stefanbirkner</groupId>
       <artifactId>system-rules</artifactId>
-      <version>1.19.0</version>
+      <version>1.4.0</version>
       <scope>test</scope>
+      <!-- junit:junit-dep is deprecated, and junit:junit replaces it. -->
+      <exclusions>
+        <exclusion>
+          <groupId>junit</groupId>
+          <artifactId>junit-dep</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
-    <!-- Selenium dependency -->
     <dependency>
-      <groupId>org.seleniumhq.selenium</groupId>
-      <artifactId>selenium-java</artifactId>
-      <version>3.10.0</version>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+        <version>3.10.0</version>
     </dependency>
   </dependencies>
 
   <build>
     <plugins>
       <plugin>
-        <!-- Configures the compiler to use Java 11 -->
+        <!-- Configures the compiler. -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
+        <version>3.1</version>
         <configuration>
-          <source>11</source>
-          <target>11</target>
+          <source>1.6</source>
+          <target>1.6</target>
           <compilerArgs>
             <arg>-Xlint</arg>
           </compilerArgs>
         </configuration>
       </plugin>
-      
       <plugin>
         <!-- Unit tests are run by surefire. -->
+        <!-- Classes under src/test/java called *Test are included automatically. -->
+        <!-- Integration tests are run during the test phase. -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.0.0-M5</version>
-        <configuration>
-          <includes>
-            <include>**/*Test.java</include>
-          </includes>
-        </configuration>
+        <version>2.16</version>
       </plugin>
-
       <plugin>
         <!-- Integration tests are run by failsafe. -->
+        <!-- Classes under src/test/java called *IT are included automatically. -->
+        <!-- Integration tests are run during the verify phase. -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>2.22.2</version>
+        <version>2.16</version>
         <executions>
           <execution>
             <goals>
@@ -113,36 +95,34 @@
           </execution>
         </executions>
       </plugin>
-      
-      <plugin>
-        <!-- Cobertura plugin for code coverage -->
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>cobertura-maven-plugin</artifactId>
-        <version>2.7</version>
-        <configuration>
-          <formats>
-            <format>xml</format>
-          </formats>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>cobertura</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <formats>
+                        <format>xml</format>
+                    </formats>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>cobertura</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
     </plugins>
   </build>
 
   <reporting>
     <plugins>
       <plugin>
-        <!-- JUnit code coverage -->
+        <!-- JUnit code coverage. -->
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
-        <version>2.7</version>
+        <version>2.6</version>
       </plugin>
     </plugins>
   </reporting>
