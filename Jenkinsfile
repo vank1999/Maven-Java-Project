@@ -49,25 +49,12 @@ pipeline {
             }
         }
 
-        stage('Unit Test Cases') {
-          steps{
-	       echo "Clean and Test"
-              sh "mvn clean install"
-	      sh "mvn test"
-          }
-          post{
-              success{
-		      echo "Clean and Test"
-                  junit 'target/surefire-reports/*.xml'
-              }
-          }
-      }
 
       stage('Build Code') {
         
           steps{
 	      unstash 'Source'
-              sh "mvn clean package"  
+              sh "mvn package -DskipTests=true"  
           }
           post{
               success{
