@@ -1,21 +1,30 @@
-FROM centos
+FROM ubuntu:latest
 
-LABEL Maintainer=RNS Email=rns@rnstech.com
+LABEL Maintainer="admin" Email="admin123@gmail.com"
 
-RUN yum update -y
-RUN yum -y install java
+# Install necessary packages
+RUN apt-get update && apt-get install -y \
+    openjdk-11-jdk \
+    curl \
+    && apt-get clean
+
+# Verify Java installation
 RUN java -version
 
-#RUN mkdir /opt/tomcat/
-
+# Set working directory
 WORKDIR /opt
-RUN curl -O http://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.58/bin/apache-tomcat-8.5.58.tar.gz
-RUN tar xzvf apache-tomcat-8.5.58.tar.gz -C /opt/
-RUN cp -R /opt/apache-tomcat-8.5.58/ /opt/tomcat
 
+# Download and extract Tomcat
+RUN curl -O https://downloads.apache.org/tomcat/tomcat-8/v8.5.58/bin/apache-tomcat-8.5.58.tar.gz
+RUN tar xzvf apache-tomcat-8.5.58.tar.gz -C /opt/
+RUN mv /opt/apache-tomcat-8.5.58 /opt/tomcat
+
+# Copy the WAR file to the webapps directory
 WORKDIR /opt/tomcat/webapps
 COPY target/*.war /opt/tomcat/webapps/webapp.war
 
+# Expose port 8080
 EXPOSE 8080
 
+# Start Tomcat
 ENTRYPOINT ["/opt/tomcat/bin/catalina.sh", "run"]
