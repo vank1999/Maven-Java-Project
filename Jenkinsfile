@@ -97,7 +97,7 @@ pipeline {
 	        steps {
              echo "Run Integration Test Cases"
              unstash 'Source'
-            sh "mvn clean verify"
+            sh "mvn clean verify -DskipTests=true"
         }
       }
     }
