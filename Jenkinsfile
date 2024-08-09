@@ -77,7 +77,7 @@ pipeline {
     	      withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'dockerPassword', usernameVariable: 'dockerUser')]) {
     		    sh "docker login -u ${dockerUser} -p ${dockerPassword}"
 	      }
-        	sh "docker push gvenkat/webapp1"
+        	sh "docker push vank1999/webapp"
          }
     }
 
