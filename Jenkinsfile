@@ -70,12 +70,14 @@ pipeline {
          }
      }
 
-           steps{
+        stage('Publish Docker Image') {
+         
+        steps{
 
     	      withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'dockerPassword', usernameVariable: 'dockerUser')]) {
     		    sh "docker login -u ${dockerUser} -p ${dockerPassword}"
 	      }
-        	sh "docker push vank1999/webapp"
+        	sh "docker push gvenkat/webapp1"
          }
     }
 
